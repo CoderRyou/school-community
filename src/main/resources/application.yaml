@@ -1,0 +1,64 @@
+server:
+  port: 8080
+spring:
+  # druid数据源配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/school_community?userUnicode=true&characterEncoding=utf8&serverTimezone=PRC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+    druid:
+      filters: stat,wall,slf4jLog
+      filter:
+        stat:
+          merge-sql: true
+        wall:
+          db-type: mysql
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+        reset-enable: true
+        allow: localhost
+      max-active: 20
+      initial-size: 5
+      max-wait: 6000
+      min-idle: 1
+      async-init: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+# Sa-Token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: satoken
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 604800 # 7天
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: 172800 # 2天
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: false
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  # token风格
+  token-style: tik
+  # token前缀
+  token-prefix: Bearer
+  # 是否输出操作日志
+  is-log: false
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+
+wx:
+  appid: wxaabcbd1f6f744f8e
+  app-secret: fc35639998b600744ac85a18069de7d7
+tecent-im:
+  sdkappid: 1400636960
+  key: 7351118ac9637ec9f436623673e135aa97c2d2c3603ebc4a9929e9d3fc9c19d4
+  expire: 604800
+  identifier: administrator
+logging:
+  level:
+    root: debug
